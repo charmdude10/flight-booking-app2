@@ -4,27 +4,52 @@ import { createUser, findUserByEmail } from "../models/userModel.js";
 
 export const register = async (req, res) => {
   const { email, password, name } = req.body;
+  if (!name || !password) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
   const lowerCaseEmail = email.toLowerCase();
 
   const hashedPassword = await bcrypt.hash(password, 10);
+
   try {
     const user = await createUser({
       email: lowerCaseEmail,
       password: hashedPassword,
       name,
     });
-    res.status(201).json(user);
+    res.status(201).json({ message: "Registered successfully, Please Login" });
   } catch (error) {
-    res.status(400).json("User already exists");
+    res.status(400).json(error);
   }
 
-  ///////////////
-  if (!username || !password) {
-    return res.status(400).json({ message: "All fields are required." });
-  }
+  /////////////////
   // Mock response for registration
-  res.status(201).json({ message: "User registered successfully." });
+  // res.status(201).json({message: "User registered successfully." });
 };
+
+// export const register = async (req, res) => {
+//   const { email, password, name } = req.body;
+//   const lowerCaseEmail = email.toLowerCase();
+
+//   const hashedPassword = await bcrypt.hash(password, 10);
+//   try {
+//     const user = await createUser({
+//       email: lowerCaseEmail,
+//       password: hashedPassword,
+//       name,
+//     });
+//     res.status(201).json(user);
+//   } catch (error) {
+//     res.status(400).json("User already exists");
+//   }
+
+//   ///////////////
+//   if (name || !password) {
+//     return res.status(400).json({ message: "All fields are required." });
+//   }
+//   // Mock response for registration
+//   res.status(201).json({ message: "User registered successfully." });
+// };
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
