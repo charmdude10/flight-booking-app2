@@ -9,17 +9,14 @@ import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 
-// Middleware to parse JSON
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(cookieParser());
 
 //built-in middleware for json
 app.use(express.json());
 
-// Connect auth routes
 app.use("/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
