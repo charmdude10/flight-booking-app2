@@ -42,23 +42,19 @@ export const register = async (req, res) => {
     });
 
     if (!newUser)
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Unable to create user account please try again",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Unable to create user account please try again",
+      });
 
     // send verification email
     await sendVerificationEmail(email, verificationToken);
 
-    res
-      .status(201)
-      .json({
-        success: true,
-        message: "User created successfully",
-        user: { ...newUser, password: undefined },
-      });
+    res.status(201).json({
+      success: true,
+      message: "User created successfully",
+      user: { ...newUser, password: undefined },
+    });
   } catch (error) {
     res.status(500).json(error);
   }
@@ -90,21 +86,17 @@ export const login = async (req, res) => {
     });
     // return res.header("auth-token", token).status(200).json({success: true, message:"You are now logged in", token: token});
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "You are now logged in",
-        token: token,
-        user: { ...user, password: undefined },
-      });
+    res.status(200).json({
+      success: true,
+      message: "You are now logged in",
+      token: token,
+      user: { ...user, password: undefined },
+    });
   } catch (error) {
-    res
-      .status(400)
-      .json({
-        success: false,
-        message: "Unable to login user account please try again",
-      });
+    res.status(400).json({
+      success: false,
+      message: "Unable to login user account please try again",
+    });
   }
 };
 
@@ -156,21 +148,17 @@ export const verifyEmail = async (req, res) => {
       return res.status(500).json({ error: "Unable to verify email" });
     }
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Email verified successfully",
-        user: { ...updatedUser, password: undefined },
-      });
+    res.status(200).json({
+      success: true,
+      message: "Email verified successfully",
+      user: { ...updatedUser, password: undefined },
+    });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Unable to verify email please try again",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Unable to verify email please try again",
+    });
   }
 };
 
@@ -207,19 +195,15 @@ export const forgotPassword = async (req, res) => {
       `${process.env.CLIENT_URL}/reset-password/${resetToken}`
     );
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Password reset email sent successfully",
-      });
+    res.status(200).json({
+      success: true,
+      message: "Password reset email sent successfully",
+    });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Unable to reset password please try again",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Unable to reset password please try again",
+    });
   }
 };
 
@@ -265,12 +249,10 @@ export const resetPassword = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Password reset successfully" });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Unable to reset password please try again",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Unable to reset password please try again",
+    });
   }
 };
 
