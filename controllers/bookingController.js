@@ -22,11 +22,12 @@ export const createBooking = async (req, res) => {
 
   const {
     flightNumber,
+    airline,
     departure,
     arrival,
     travelDate,
     returnDate,
-    cabinClass,
+    stopCount,
     price,
   } = req.body;
 
@@ -38,8 +39,9 @@ export const createBooking = async (req, res) => {
       arrival,
       travelDate,
       returnDate,
-      cabinClass,
       price,
+      airline,
+      stopCount,
       userId: id,
     },
   });
