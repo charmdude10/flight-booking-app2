@@ -15,6 +15,3 @@ router.delete("/delete-booking/:bookingId", authMiddleware, deleteBooking);
 router.get("/get-all-bookings", authMiddleware, getAllBookings);
 
 export default router;
-
-
-
